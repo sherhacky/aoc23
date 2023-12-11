@@ -1,17 +1,6 @@
 with open('./input11.txt') as f:
     data = f.read()
 
-# data = '''...#......
-# .......#..
-# #.........
-# ..........
-# ......#...
-# .#........
-# .........#
-# ..........
-# .......#..
-# #...#.....
-# '''
 
 lines = data.split('\n')[:-1]
 
@@ -24,6 +13,11 @@ for j in range(len(lines[0])):
     if all(lines[i][j] == '.' for i in range(len(lines))):
         j_widen.add(j)
 
+# part 1 - actually widening the array
+def taxicab(u, v):
+    return abs(u[0] - v[0]) + abs(u[1] - v[1])
+
+
 widened_lines = []
 
 for i in range(len(lines)):
@@ -32,7 +26,6 @@ for i in range(len(lines)):
     if i in i_widen:
         widened_lines.append('.'*(len(lines[0]) + len(j_widen)))
 
-
 galaxy_coordinates = set(
     [
         (i, j) for i in range(len(widened_lines))
@@ -40,9 +33,6 @@ galaxy_coordinates = set(
         if widened_lines[i][j] == '#'
     ]
 )
-
-def taxicab(u, v):
-    return abs(u[0] - v[0]) + abs(u[1] - v[1])
 
 result = sum(
     [
@@ -54,10 +44,11 @@ result = sum(
 print(result)
 
 
+# part 2
 def wide_taxicab(u, v, factor, i_widen, j_widen):
-    return abs(u[0] - v[0]) + factor * len([
+    return abs(u[0] - v[0]) + (factor - 1) * len([
         i for i in i_widen if min(u[0], v[0]) < i < max(u[0], v[0])
-    ]) + abs(u[1] - v[1]) + factor * len([
+    ]) + abs(u[1] - v[1]) + (factor - 1) * len([
         j for j in j_widen if min(u[1], v[1]) < j < max(u[1], v[1])
     ])
 
@@ -72,7 +63,7 @@ galaxy_coordinates = set(
 
 result = sum(
     [
-        wide_taxicab(a, b, 10**6 - 1, i_widen, j_widen) 
+        wide_taxicab(a, b, 10**6, i_widen, j_widen) 
             for a in galaxy_coordinates 
             for b in galaxy_coordinates
             if a != b
