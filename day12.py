@@ -39,4 +39,3 @@ for i, line in enumerate(lines):
     )
 print(part_1_result)
 print(part_2_result)
-
