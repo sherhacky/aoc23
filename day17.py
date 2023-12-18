@@ -31,7 +31,8 @@ lines = data.split('\n')[:-1]
 grid = [[int(char) for char in line] for line in lines]
 m, n = len(grid), len(grid[0])
 # idea:
-# product of grid with possible configurations of steps leading up to that point
+# product of grid with possible configurations of steps 
+# leading up to that point
 # eg '>2', '>1', '>0'
 # the weight of an edge is the number in the target node
 
