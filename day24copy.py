@@ -85,7 +85,7 @@ def line_and_plane_intersection_point(p, v, n):
 # googling / intuition, 4 skew lines should be sufficient to determine the
 # vector n.  So we restrict to a set of 4 paths and do the above procedure
 # pairwise, saving the found intersection points to a set seen_points.  We know
-# we've found the n we're looking for if the resulting
+# we've found the n we're looking for if the resulting set is a singleton.
 #
 #   Besides being very inefficient, this had a crucial flaw in that the
 # position values were large enough to introduce floating point errors.  Thus
