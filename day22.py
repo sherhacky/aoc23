@@ -63,13 +63,13 @@ def supporters(bricks, t):
     return result
 
 # assumes bricks is settled
-def safe_to_remove(bricks, b):
-    occupied = {p: brick for brick in bricks for p in brick}
+def safe_to_remove(settled_bricks, b):
+    occupied = {p: brick for brick in settled_bricks for p in brick}
     for p in b:
         q = (p[0], p[1], p[2] + 1)
         if q in occupied and q not in b:
             t = occupied[q]
-            if len(supporters(bricks, t)) <= 1:
+            if len(supporters(settled_bricks, t)) <= 1:
                 return False
             
     return True
