@@ -227,16 +227,16 @@ for i in range(len(p)):
         if all(u_0[k] != 0 and u_1[k] != 0 for k in range(3)):
             x, y, t_1, t_2 = path_intersection_point_x_y(
                 q_0, u_0, q_1, u_1)
-        print(i, j)
-        t_1 = round(t_1_start + t_1)
-        t_2 = round(t_2_start + t_2)
-        # print(p[i], v[i], t_1_start + t_1)
-        # print(p[j], v[j], t_2_start + t_2)
-        p_1 = tuple(p[i][k] + t_1 * (v[i][k] - n[k]) for k in range(3))
-        p_2 = tuple(p[j][k] + t_2 * (v[j][k] - n[k]) for k in range(3))
-        print(p_1)
-        print(p_2)
-        print(sum(p_1))
+            print(i, j)
+            t_1 = round(t_1_start + t_1)
+            t_2 = round(t_2_start + t_2)
+            print(p[i], v[i], t_1_start + t_1)
+            print(p[j], v[j], t_2_start + t_2)
+            p_1 = tuple(p[i][k] + t_1 * (v[i][k] - n[k]) for k in range(3))
+            p_2 = tuple(p[j][k] + t_2 * (v[j][k] - n[k]) for k in range(3))
+            print(p_1)
+            print(p_2)
+            print(sum(p_1))
 
 a, b, c = 209, -180, 112
 best = float('inf')
