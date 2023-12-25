@@ -256,9 +256,11 @@ search_for_normal_vector_minimum_diameter_target_and_nbhd(
 n = (209, -180, 112)
 
 # To find the starting point of our throw, translate by appropriate time t.
-# Print any candidates not seen so far (but we always get the same point p,
-# so we know it's right)
-good_points = set()
+# Since floating point errors can still occur with the division for calculating
+# the time t when a path intersects the normal plane, we track
+# the number of times a starting candidate point appears, and only print a
+# result when we see it appear the thousandth time.
+good_points = defaultdict(int)
 for i in range(len(p)):
     for j in range(i + 1, len(p)):
         q_0 = line_and_plane_intersection_point(p[i], v[i], n)
@@ -279,8 +281,15 @@ for i in range(len(p)):
             p_1 = tuple(p[i][k] + t_1 * (v[i][k] - n[k]) for k in range(3))
             p_2 = tuple(p[j][k] + t_2 * (v[j][k] - n[k]) for k in range(3))
             for p_i in [p_1, p_2]:
-                if p_i not in good_points:
+                good_points[p_i] += 1
+                if good_points[p_i] == 1000:
                     print('Candidate point {}, final answer {}'.format(
                         p_i, sum(p_i)
                     ))
-                    good_points.add(p_i)
+
+# For comfort, observe the desired answer occurs close to 90k times
+# compared to other candidates
+print('Number of occurrences of a candidate answer:')
+for item in sorted(good_points.keys(), key=lambda x: -good_points[x]):
+    if good_points[item] > 1:
+        print(item, ' -> ', good_points[item])
